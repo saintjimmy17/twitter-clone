@@ -13,6 +13,5 @@
   </div>
 </div>
 
-<!-- <app-login-modal />
-<app-register-modal /> -->
-<app-modal/>
+<app-login-modal *ngIf="modalService.isLoginModelOpen()"/>
+<app-register-modal *ngIf="modalService.isRegisterModelOpen()" />

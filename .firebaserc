@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "twitter-clone-677d5": {
+      "hosting": {
+        "twitter-clone": [
+          "twitter-clone-677d5"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "twitter-clone-677d5"
+  }
+}

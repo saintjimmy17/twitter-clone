@@ -10,5 +10,6 @@ export class ModelService {
   isOpen = signal<boolean>(false);
   isClose= signal<boolean>(false);
 
-  isRegisterModelOpen = signal
+  isRegisterModelOpen = signal<boolean>(false);
+  isLoginModelOpen = signal<boolean>(false);
 }

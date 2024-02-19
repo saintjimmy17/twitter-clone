@@ -1,11 +1,17 @@
-import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TemplateRef,
+} from '@angular/core';
 
 @Component({
-  selector: 'app-modal',
+  selector: 'Modal',
   template: `
     <div
-    *ngIf="isOpen"
-    class="
+      *ngIf="isOpen"
+      class="
       justify-center
       items-center
       flex
@@ -18,10 +24,14 @@ import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/co
       focus:outline-none
       bg-neutral-800
       bg-opacity-70
-    ">
-      <div class="relative w-full lg:w-3/6 my-6 mx-auto lg:mx-w-3xl h-full lg:h-auto">
+    "
+    >
+      <div
+        class="relative w-full lg:w-3/6 my-6 mx-auto lg:mx-w-3xl h-full lg:h-auto"
+      >
         <!-- content -->
-        <div class="
+        <div
+          class="
         h-full
         lg:h-auto
         border-0
@@ -34,42 +44,55 @@ import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/co
         bg-black
         outline-none
         focus:outline-none
-        ">
-      <!-- Header -->
-      <h3 class="text-3xl font-semibold text-white">
-        Header title
-      </h3>
-      <button class="p-1 ml-auto border-0 text-white hover:opacity-70 transition">
-        <span class="material-icons">close</span>
-      </button>
+        "
+        >
+          <!-- Header -->
+          <div
+            class="
+      flex
+      items-center
+      justify-between
+      p-10
+      rounded-t
+      "
+          >
+            <h3 class="text-3xl font-semibold text-white">
+              {{ title }}
+            </h3>
+            <button
+              (click)="close()"
+              class="p-1 ml-auto border-0 text-white hover:opacity-70 transition"
+            >
+              <span class="material-icons">close</span>
+            </button>
+          </div>
+          <!-- body -->
+          <div class="relative p-10 flex-auto">
+            <ng-content></ng-content>
+          </div>
+          <!-- footer -->
+          <div class="flex flex-col gap-2 p-10">
+            <app-button
+              (formSubmitted)="submit()"
+              [disabled]="disabled"
+              [label]="actionLabel"
+              [secondary]="true"
+              [fullWidth]="true"
+              [large]="true"
+            >
+            </app-button>
+            <<ng-container *ngIf="footer">
+              <ng-container *ngTemplateOutlet="footer"></ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- body -->
-    <div class="relative p-10 flex-auto">
-      <ng-content></ng-content>
-    </div>
-    <!-- footer -->
-    <div class="flex flex-col gap-2 p-10">
-    <app-button
-        (formSubmitted)="submit()"
-        [disabled]="disabled"
-        [label]="actionLabel"
-        [secondary]="true"
-        [fullWidth]="true"
-        [large]="true"
-      >
-    </app-button>
-    <<ng-container *ngIf="footer">
-      <ng-container *ngTemplateOutlet="footer"></ng-container>
-    </ng-container>
-    </div>
-  </div>
-  </div>
   `,
-  styles: [
-  ]
+  styles: [],
 })
 export class ModalComponent {
-  @Input() isOpen: boolean = false;
+  @Input() isOpen: boolean = true;
   @Input() title: string = '';
   @Input() footer?: TemplateRef<any>;
   @Input() actionLabel: string = '';
@@ -78,11 +101,11 @@ export class ModalComponent {
   @Output() formSubmitted: EventEmitter<void> = new EventEmitter<void>();
   @Output() onClose: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor() { }
+  constructor() {}
 
   submit(): void {
     this.disabled = true;
-    this.actionLabel = "Loading...";
+    this.actionLabel = 'Loading...';
     this.formSubmitted.emit();
   }
 
